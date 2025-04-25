@@ -1,7 +1,5 @@
-const fs = require('fs').promises;
-const mo = require('./mathOperations.js')
-const EventEmitter = require('events');
-const express = require('express');
+// const fs = require('fs').promises;
+// const EventEmitter = require('events');
 
 // fs.readFile('test1.txt', 'utf-8', (err, data) => {
 //     console.log(data)
@@ -37,7 +35,6 @@ const express = require('express');
 
 
 //
-// app.use('/', express.static('./'))
 // express.static('./img')
 //
 // app.get('/', (req, res) => {
@@ -80,38 +77,51 @@ const express = require('express');
 //
 //
 
+const express = require('express');
 const app = express()
 const port = 8080;
+
+const cors = require('cors');
+app.use(cors());
+
 app.use(express.json());
+
 const mongoose = require('mongoose')
-const connection = 'mongodb://127.0.0.1:27017'
+const connection = 'mongodb://127.0.0.1:27017/blog'
 
 mongoose.connect(connection)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
 
-
-
-const taskSchema = new mongoose.Schema({
+const blogSchema = new mongoose.Schema({
     title: {type: String, required: true},
-    completed: {type: Boolean, required: false}
+    author: {type: String, required: true},
+    date: {type: String, required: true},
+    content: {type: String, required: true}
 })
 
-const Task = mongoose.model('Task', taskSchema)
+const Blog = mongoose.model('Blog', blogSchema)
 
-app.get('/tasks', async (req, res) => {
+app.use('/', express.static('./'))
+
+app.get('/blogs', async (req, res) => {
     try {
-        const task = await Task.find();
-        res.status(200).json(task);
+        const blogs = await Blog.find();
+        res.status(200).json(blogs);
     } catch (err) {
-        res.status(500).json(err.message);
+        res.status(500).json({ error: err.message });
     }
 })
 
-app.post('/tasks', async (req, res) => {
+app.post('/blogs', async (req, res) => {
     try {
-        const task = new Task({ title: req.body.title })
-        const saved = await task.save();
+        const blog = new Blog({
+            title: req.body.title,
+            author: req.body.author,
+            date: new Date().toLocaleDateString(),
+            content: req.body.content
+        })
+        const saved = await blog.save();
         res.status(201).json(saved);
     }
     catch (err) {
@@ -119,27 +129,37 @@ app.post('/tasks', async (req, res) => {
     }
 })
 
-app.put('/tasks/:id', async (req, res) => {
+app.put('/blogs/:id', async (req, res) => {
     try {
-        const updatedTask = await Task.findByIdAndUpdate(
+        const updatedBlog = await Blog.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            {
+                title: req.body.title,
+                author: req.body.author,
+                date: new Date().toLocaleDateString(),
+                content: req.body.content
+            },
             { new: true }
         )
-        res.json(updatedTask);
+        if (!updatedBlog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
+        res.json(updatedBlog);
     }
     catch (err) {
         res.status(400).json({ error: err.message })
     }
 })
 
-app.delete('/tasks/:id', async (req, res) => {
+app.delete('/blogs/:id', async (req, res) => {
     try {
-        const deletedTask = await Task.findByIdAndDelete(
-            req.params.id,
-            req.body,
-        )
-        res.json( { message: "Task deleted successfully!"} );
+        const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
+
+        if (!deletedBlog) {
+            return res.status(404).json({ error: 'Blog not found' });
+        }
+
+        res.json({ message: "Blog deleted successfully!"});
     }
     catch (err) {
         res.status(400).json({ error: err.message })
@@ -149,4 +169,3 @@ app.delete('/tasks/:id', async (req, res) => {
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
 })
-

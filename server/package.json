@@ -19,7 +19,10 @@
   },
   "homepage": "https://github.com/Aminesmaeili79/HTTP-Server#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "mongodb": "^6.16.0",
     "mongoose": "^8.14.0"
   }
 }
