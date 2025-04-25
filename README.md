@@ -1,2 +1,3 @@
-# HTTP-Server
-A simple http server written with node.js
+# Blog
+
+A simple blog website to keep my journals and thoughts (or even what I learn)
