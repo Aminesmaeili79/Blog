@@ -86,36 +86,67 @@ app.use(express.json());
 const mongoose = require('mongoose')
 const connection = 'mongodb://127.0.0.1:27017'
 
-// mongoose.connect(connection)
-//     .then(() => console.log('Connected to MongoDB'))
-//     .catch(err => console.error('MongoDB connection error:', err));
-//
-//
-//
-// const taskSchema = new mongoose.Schema({
-//     title: {type: String, required: true},
-//     completed: {type: Boolean, required: false}
-// })
-//
-// const Task = mongoose.model('Task', taskSchema)
-//
-// app.get('/tasks', async (req, res) => {
-//     const task = await Task.find();
-//     res.json(task);
-// })
-//
-// app.post('/tasks', (req, res) => {
-//     try {
-//         const task = new Task({ title: req.body.title })
-//         const saved = task.save();
-//         res.status(201).json(saved);
-//     }
-//     catch (err) {
-//         res.status(400).json({ error: err })
-//     }
-// })
-//
-// app.listen(port, () => {
-//     console.log(`Listening on port ${port}`)
-// })
+mongoose.connect(connection)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+
+
+const taskSchema = new mongoose.Schema({
+    title: {type: String, required: true},
+    completed: {type: Boolean, required: false}
+})
+
+const Task = mongoose.model('Task', taskSchema)
+
+app.get('/tasks', async (req, res) => {
+    try {
+        const task = await Task.find();
+        res.status(200).json(task);
+    } catch (err) {
+        res.status(500).json(err.message);
+    }
+})
+
+app.post('/tasks', async (req, res) => {
+    try {
+        const task = new Task({ title: req.body.title })
+        const saved = await task.save();
+        res.status(201).json(saved);
+    }
+    catch (err) {
+        res.status(400).json({ error: err.message })
+    }
+})
+
+app.put('/tasks/:id', async (req, res) => {
+    try {
+        const updatedTask = await Task.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        )
+        res.json(updatedTask);
+    }
+    catch (err) {
+        res.status(400).json({ error: err.message })
+    }
+})
+
+app.delete('/tasks/:id', async (req, res) => {
+    try {
+        const deletedTask = await Task.findByIdAndDelete(
+            req.params.id,
+            req.body,
+        )
+        res.json( { message: "Task deleted successfully!"} );
+    }
+    catch (err) {
+        res.status(400).json({ error: err.message })
+    }
+})
+
+app.listen(port, () => {
+    console.log(`Listening on port ${port}`)
+})
 
