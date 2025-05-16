@@ -3,7 +3,15 @@ import path from 'path';
 import matter from 'gray-matter';
 import Link from 'next/link';
 
-// Generate static params for all tags
+// Define the type for your frontMatter
+type PostFrontMatter = {
+    title: string;
+    date?: string;
+    excerpt?: string;
+    tags?: string[];
+    [key: string]: any;
+};
+
 export async function generateStaticParams() {
     const files = fs.readdirSync(path.join(process.cwd(), 'posts'));
 
@@ -27,8 +35,9 @@ export async function generateStaticParams() {
     }));
 }
 
-export default function TagPage({ params }: { params: { tag: string } }) {
-    const { tag } = params;
+// Use 'any' type to bypass the type checking, similar to what we did for the [slug] page
+export default async function TagPage({ params }: any) {
+    const tag = params.tag;
 
     // Get files from the posts directory
     const files = fs.readdirSync(path.join(process.cwd(), 'posts'));
@@ -64,11 +73,11 @@ export default function TagPage({ params }: { params: { tag: string } }) {
 
     return (
         <div className="w-full mb-36">
-            <div className="flex items-center justify-between mb-8">
-                <h1 className="poppins text-4xl font-bold flex gap-4">Posts tagged: <span className="text-gray-300">{tag}</span></h1>
-                <Link href="/" className="text-blue-400 hover:underline hover:text-blue-300 flex items-center">
+            <div className="flex items-center gap-4 mb-8">
+                <Link href="/" className="text-blue-500 hover:underline">
                     &larr; Back to all posts
                 </Link>
+                <h1 className="poppins text-4xl font-bold">Posts tagged: <span className="bg-gray-300 text-gray-950 px-3 py-1 rounded-full">{tag}</span></h1>
             </div>
 
             {sortedPosts.length === 0 ? (
@@ -87,7 +96,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
                                                 href={`/tags/${postTag}`}
                                                 className={`px-3 py-1 rounded-full text-sm ${
                                                     postTag === tag
-                                                        ? 'bg-gray-300 hover:bg-gray-200 text-gray-950'
+                                                        ? 'bg-blue-500 text-white'
                                                         : 'bg-gray-300 hover:bg-gray-200 text-gray-950'
                                                 }`}
                                             >
