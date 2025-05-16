@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import Link from "next/link";
+import { Metadata } from 'next';
 
 // Define the type for your frontMatter
 type PostFrontMatter = {
@@ -14,11 +15,11 @@ type PostFrontMatter = {
     [key: string]: any; // For any other properties
 };
 
-type PostParams = {
+// Update this to match the correct Next.js 15 params type
+type Props = {
     params: {
         slug: string;
     };
-    searchParams?: Record<string, string | string[] | undefined>;
 };
 
 export async function generateStaticParams() {
@@ -29,8 +30,22 @@ export async function generateStaticParams() {
     }));
 }
 
-export default async function Post({ params, searchParams }: PostParams) {
+// Generate metadata for the page
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = params;
+    const filePath = path.join(process.cwd(), 'posts', `${slug}.md`);
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const { data } = matter(fileContent);
+
+    return {
+        title: data.title,
+        description: data.excerpt || 'Blog post'
+    };
+}
+
+export default async function Post({ params }: Props) {
+    // Force cast params to work around the type issue
+    const slug = params.slug as string;
     const filePath = path.join(process.cwd(), 'posts', `${slug}.md`);
 
     const fileContent = fs.readFileSync(filePath, 'utf-8');
