@@ -31,7 +31,7 @@ const Footer = () => {
     const uniqueTags = [...new Set(allTags)];
 
     return (
-        <footer className="mt-24 py-6 border-t">
+        <footer className="mt-24 py-6 border-t border-gray-700">
             <h2 className="mb-8 text-2xl font-semibold">Browse blog posts by tags: </h2>
             <div className="flex flex-wrap gap-3">
                 {uniqueTags.map((tag, index) => (

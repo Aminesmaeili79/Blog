@@ -33,7 +33,7 @@ export default function PostsIndex() {
             <h1 className="poppins text-6xl font-bold mb-16">Blog Posts</h1>
             <ul className="space-y-8">
                 {sortedPosts.map(post => (
-                    <li key={post.slug} className="border p-6 rounded-lg hover:shadow-md transition">
+                    <li key={post.slug} className="border border-gray-700 p-6 rounded-lg hover:shadow-md transition">
                         <Link href={`/posts/${post.slug}`} className="block">
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 mb-4">
                                 <h2 className="poppins text-3xl font-semibold">{post.frontMatter.title}</h2>

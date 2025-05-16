@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Header = () => {
     return (
-        <header className="border-b-1 w-full pb-4 pt-16 mb-36 flex justify-between items-center gap-48">
+        <header className="border-b-1 border-gray-700 w-full pb-4 pt-16 mb-36 flex justify-between items-center gap-48">
             <Link href="/">
                 <h1 className="poppins text-3xl font-extrabold">Amin's Blogs</h1>
             </Link>
