@@ -5,6 +5,22 @@ import { remark } from 'remark';
 import html from 'remark-html';
 import Link from "next/link";
 
+// Define the type for your frontMatter
+type PostFrontMatter = {
+    title: string;
+    date?: string;
+    excerpt?: string;
+    tags?: string[];
+    [key: string]: any; // For any other properties
+};
+
+type PostParams = {
+    params: {
+        slug: string;
+    };
+    searchParams?: Record<string, string | string[] | undefined>;
+};
+
 export async function generateStaticParams() {
     const files = fs.readdirSync(path.join(process.cwd(), 'posts'));
 
@@ -13,13 +29,17 @@ export async function generateStaticParams() {
     }));
 }
 
-export default async function Post({ params }: { params: { slug: string } }) {
+export default async function Post({ params, searchParams }: PostParams) {
     const { slug } = params;
     const filePath = path.join(process.cwd(), 'posts', `${slug}.md`);
 
     const fileContent = fs.readFileSync(filePath, 'utf-8');
 
-    const { data: frontMatter, content } = matter(fileContent);
+    // Type assertion for the matter result
+    const { data: frontMatter, content } = matter(fileContent) as {
+        data: PostFrontMatter;
+        content: string;
+    };
 
     const processedContent = await remark()
         .use(html)
@@ -28,19 +48,20 @@ export default async function Post({ params }: { params: { slug: string } }) {
     const contentHtml = processedContent.toString();
 
     return (
-        <article className="prose flex flex-col gap-8 px-8 py-16 mb-16 rounded-2xl border-1">
+        <article className="prose flex flex-col gap-8 px-8 py-16 mb-16 rounded-2xl border">
             <div className="flex flex-wrap gap-8">
                 <h1 className="text-4xl font-bold poppins">{frontMatter.title}</h1>
                 {Array.isArray(frontMatter.tags) && frontMatter.tags.map((tag, index) => (
                     <Link
                         key={index}
                         href={`/tags/${tag}`}
-                        className="flex items-center bg-gray-300 hover:bg-gray-200 text-gray-950 px-4 rounded-4xl text-sm"
+                        className="flex items-center bg-gray-300 hover:bg-gray-200 text-gray-950 px-4 rounded-full text-sm"
                     >
                         {tag}
                     </Link>
                 ))}
-            </div>            {frontMatter.date && (
+            </div>
+            {frontMatter.date && (
                 <div className="flex gap-12 mb-8">
                     <p className="italic text-gray-500">
                         {new Date(frontMatter.date).toLocaleDateString()}
