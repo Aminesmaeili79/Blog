@@ -14,22 +14,22 @@ const Header = () => {
             </Link>
             <div className="links flex items-center gap-4">
                 <div className="github">
-                    <a href="">
+                    <a href="https://github.com/aminesmaeili79" target="_blank">
                         <Image src={GitHub} alt="github link"/>
                     </a>
                 </div>
                 <div className="linkedin">
-                    <a href="">
+                    <a href="https://linkedin.com/in/aminesmaeili79" target="_blank">
                         <Image src={LinkedIn} alt="linkedin link"/>
                     </a>
                 </div>
                 <div className="x">
-                    <a href="">
+                    <a href="https://x.com/aminesmaeili79" target="_blank">
                         <Image src={X} alt="twitter link"/>
                     </a>
                 </div>
                 <div className="portfolio">
-                    <a className="text-xl font-light" href="">My Portfolio</a>
+                    <a className="text-xl font-light" href="https://aminesmaeili79.github.io/Portfolio/" target="_blank">My Portfolio</a>
                 </div>
             </div>
         </header>

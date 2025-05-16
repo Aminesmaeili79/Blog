@@ -1,4 +1,5 @@
 import React from 'react'
+import Footer from "@/src/components/Footer";
 
 interface LayoutProps {
     children: React.ReactNode
@@ -6,7 +7,10 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
     return (
-        <div>{children}</div>
+        <>
+            <div>{children}</div>
+            <Footer/>
+        </>
     )
 }
 

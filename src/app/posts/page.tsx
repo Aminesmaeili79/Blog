@@ -29,26 +29,43 @@ export default function PostsIndex() {
     });
 
     return (
-        <div className="w-full mb-36 ">
-                <h1 className="poppins text-6xl font-bold mb-16">Blog Posts</h1>
-            <ul className="space-y-4">
+        <div className="w-full mb-36">
+            <h1 className="poppins text-6xl font-bold mb-16">Blog Posts</h1>
+            <ul className="space-y-8">
                 {sortedPosts.map(post => (
-                    <li key={post.slug} className="border p-4 rounded-md hover:shadow-md transition">
+                    <li key={post.slug} className="border p-6 rounded-lg hover:shadow-md transition">
                         <Link href={`/posts/${post.slug}`} className="block">
-                            <div className="flex gap-32 mb-4">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 mb-4">
                                 <h2 className="poppins text-3xl font-semibold">{post.frontMatter.title}</h2>
-                                <Link className="bg-gray-400 text-gray-950 px-2 py-0.5 rounded-2xl" href="">{post.frontMatter.tags}</Link>
+                                <div className="flex flex-wrap gap-2">
+                                    {/* Handle tags as an array */}
+                                    {Array.isArray(post.frontMatter.tags) && post.frontMatter.tags.map((tag, index) => (
+                                        <Link
+                                            key={index}
+                                            href={`/tags/${tag}`}
+                                            className="bg-gray-300 hover:bg-gray-200 text-gray-950 px-3 py-1 rounded-full text-sm"
+                                        >
+                                            {tag}
+                                        </Link>
+                                    ))}
+                                </div>
                             </div>
                             {post.frontMatter.date && (
-                               <div className="flex gap-4">
-                                   <p className="text-gray-500 mb-8">
-                                       {new Date(post.frontMatter.date).toLocaleDateString()}
-                                   </p>
-                                   <p>posted by <span className="text-gray-500">Amin Esmaeili</span></p>
-                               </div>
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-sm mb-6">
+                                    <p className="text-gray-500">
+                                        {new Date(post.frontMatter.date).toLocaleDateString('en-US', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric'
+                                        })}
+                                    </p>
+                                    <p className="sm:before:content-['•'] sm:before:mx-2 sm:before:text-gray-300">
+                                        Posted by <span className="text-gray-500 font-medium">Amin Esmaeili</span>
+                                    </p>
+                                </div>
                             )}
                             {post.frontMatter.excerpt && (
-                                <p className="text-2xl font-light poppins mt-2">{post.frontMatter.excerpt}</p>
+                                <p className="text-xl font-light poppins">{post.frontMatter.excerpt}</p>
                             )}
                         </Link>
                     </li>
