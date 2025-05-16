@@ -22,17 +22,16 @@ export async function generateStaticParams() {
     }));
 }
 
-// Use 'any' type to bypass the type checking
 export default async function Post({ params }: any) {
     const slug = params.slug;
     const filePath = path.join(process.cwd(), 'posts', `${slug}.md`);
 
     const fileContent = fs.readFileSync(filePath, 'utf-8');
 
-    const { data: frontMatter, content } = matter(fileContent) as {
-        data: PostFrontMatter;
-        content: string;
-    };
+    // Fix the type casting issue
+    const matterResult = matter(fileContent);
+    const frontMatter = matterResult.data as PostFrontMatter;
+    const content = matterResult.content;
 
     const processedContent = await remark()
         .use(html)

@@ -22,7 +22,8 @@ export async function generateStaticParams() {
             'utf-8'
         );
 
-        const { data } = matter(markdownWithMeta);
+        const matterResult = matter(markdownWithMeta);
+        const data = matterResult.data;
         return data.tags || [];
     });
 
@@ -35,7 +36,6 @@ export async function generateStaticParams() {
     }));
 }
 
-// Use 'any' type to bypass the type checking, similar to what we did for the [slug] page
 export default async function TagPage({ params }: any) {
     const tag = params.tag;
 
@@ -51,7 +51,8 @@ export default async function TagPage({ params }: any) {
                 'utf-8'
             );
 
-            const { data: frontMatter } = matter(markdownWithMeta);
+            const matterResult = matter(markdownWithMeta);
+            const frontMatter = matterResult.data as PostFrontMatter;
 
             return {
                 slug,
