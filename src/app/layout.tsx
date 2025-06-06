@@ -5,8 +5,8 @@ import Header from "@/src/components/Header";
 import Footer from "@/src/components/Footer";
 
 const karla = Karla({
-    variable: "--font-karla",
-    subsets: ["latin"],
+  variable: "--font-karla",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -23,9 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning={true}
-        className={`karla antialiased my-4 mx-[28em] px-32 pb-16 `}
+        className={`karla antialiased my-4 mx-[14em] px-24 pb-16 `}
       >
-      <Header/>
+        <Header />
         {children}
       </body>
     </html>
