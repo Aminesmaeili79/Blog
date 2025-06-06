@@ -44,6 +44,11 @@ body {
   color: white !important;
 }
 
+.prose a {
+  color: #6363ff !important;
+  text-decoration: underline;
+}
+
 .prose strong {
   color: white !important;
 }
