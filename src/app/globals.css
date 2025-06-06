@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;
@@ -25,6 +26,48 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Override prose text colors to ensure white text */
+.prose {
+  color: white !important;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: white !important;
+}
+
+.prose p {
+  color: white !important;
+}
+
+.prose strong {
+  color: white !important;
+}
+
+.prose em {
+  color: white !important;
+}
+
+.prose ul,
+.prose ol {
+  color: white !important;
+}
+
+.prose li {
+  color: white !important;
+}
+
+.prose blockquote {
+  color: white !important;
+}
+
+.prose code {
+  color: white !important;
+}
 
 .karla {
           font-family: "Karla", sans-serif;

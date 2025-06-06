@@ -40,7 +40,7 @@ export default async function Post({ params }: any) {
     const contentHtml = processedContent.toString();
 
     return (
-        <article className="prose flex flex-col gap-8 px-8 py-16 mb-16 rounded-2xl border">
+        <article className="flex flex-col gap-8 px-8 py-16 mb-16 rounded-2xl border">
             <div className="flex flex-wrap gap-8">
                 <h1 className="text-4xl font-bold poppins">{frontMatter.title}</h1>
                 {Array.isArray(frontMatter.tags) && frontMatter.tags.map((tag, index) => (
@@ -63,7 +63,7 @@ export default async function Post({ params }: any) {
                     </p>
                 </div>
             )}
-            <div className="text-xl font-light" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+            <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: contentHtml }} />
         </article>
     );
 }
