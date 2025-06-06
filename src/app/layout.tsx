@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning={true}
-        className={`karla antialiased my-4 mx-[14em] px-24 pb-16 `}
+        className={`karla antialiased md:my-4 my-16 md:mx-[8em] mx-[2em]`}
       >
         <Header />
         {children}
