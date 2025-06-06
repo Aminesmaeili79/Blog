@@ -2,7 +2,7 @@
 title: "Applying for CyprusCodes | Futurecast.io"
 date: "2025-06-06"
 excerpt: "In this blog I share my experience about how I got accepted as a part of CyprusCodes"
-tags: ['Job Application', 'React']
+tags: ['job-application', 'react']
 ---
 
 # How did I find CyprusCodes and applied for the fullstack developer Application
