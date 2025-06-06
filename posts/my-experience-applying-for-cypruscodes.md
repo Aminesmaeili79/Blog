@@ -7,7 +7,7 @@ tags: ['job-application', 'react']
 
 # How did I find CyprusCodes and applied for the fullstack developer Application
 
-First and foremost, I have to say that I am pretty much happy working with the CyprusCodes and Futurecast.io teams, as the team and the members are very professional and sophisticated, and the environment is very up-beat and helping for new members like me.
+First and foremost, I have to say that I am pretty much happy working with the [CyprusCodes](https://www.cypruscodes.com) and [Futurecast.studio](https://futurecast.studio) teams, as the team and the members are very professional and sophisticated, and the environment is very up-beat and helping for new members like me.
 
 One day I was going through Linkedin open jobs and was applying to tens of positions from Node.js backend developer roles to fullstack MERN ones. Then I came across a mutual contact which was the Co-founder of CyprusCodes, and I decided to step up and ask him if there are any open positions at their company. He made an interview and assigned a task to evaluate my skills.
 
@@ -21,7 +21,7 @@ The trickiest part was to implement the pagination, but thanks to the API, I use
 
 # What happened afterwards?
 
-After the team reviewed my task, they decided to make another technical interview on how I implemented the mentioned project and more technical questions about React and web development. A few days later, they contacted me and I got the happy new! I became a part of the Blinx project that CyprusCodes and Futurecast.io are currently working on and have been working as a part of the team for almost 10 days.
+After the team reviewed my task, they decided to make another technical interview on how I implemented the mentioned project and more technical questions about React and web development. A few days later, they contacted me and I got the happy new! I became a part of the Blinx project that [CyprusCodes](https://www.cypruscodes.com) and [Futurecast.studio](https://futurecast.studio) are currently working on and have been working as a part of the team for almost 10 days.
 
 # What has been going on so far?
 
